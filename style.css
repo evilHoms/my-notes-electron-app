@@ -1,0 +1,113 @@
+@font-face {
+  font-family: Caveat;
+  src: url('./accets/fonts/Caveat-Regular.ttf');
+}
+
+@font-face {
+  font-family: Caveat;
+  src: url('./accets/fonts/Caveat-Bold.ttf');
+  font-weight: bold;
+}
+
+:root {
+  --root-path: '/'
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#root {
+  -webkit-app-region: drag;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fff url('./accets/images/paper.jpg') center / cover no-repeat;
+}
+
+.top-panel {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.note-area {
+  -webkit-app-region: no-drag;
+  display: block;
+  flex-grow: 10;
+  width: 95vw;
+  margin: 10px auto 2vh;
+  padding: 7px;
+  border: none;
+  resize: none;
+  background-color: transparent;
+  font-family: Caveat;
+  font-size: 20px;
+}
+
+.menu-btn {
+  -webkit-app-region: no-drag;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border-bottom: none;
+  border-right: none;
+  transform: rotate(45deg) translateY(-45px);
+  box-shadow: 0 0 9px 1px #555;
+
+  background-color: transparent;
+}
+
+.menu-btn:hover ~ .menu-wrapper {
+  width: 200px;
+  max-height: 200px;
+  padding: 20px;
+  box-shadow: 0 0 9px 1px #777;
+}
+
+.menu-wrapper {
+  -webkit-app-region: no-drag;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 0;
+  height: auto;
+  max-height: 0;
+  padding: 0;
+  background: #ede4db url('./accets/images/paper.jpg') center / cover no-repeat;
+  box-shadow: 0 0 9px 1px transparent;
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+.menu {
+  width: 200px;
+}
+
+.menu-wrapper:hover {
+  width: 200px;
+  max-height: 200px;
+  padding: 20px;
+  box-shadow: 0 0 9px 1px #777;
+}
+
+.title-input {
+  -webkit-app-region: no-drag;
+  margin: 20px 0 0 2.5vw;
+  padding: 7px;
+  border: none;
+  font-family: Caveat;
+  font-weight: 700;
+  font-size: 24px;
+  font-weight: 700;
+  background-color: transparent;
+}
