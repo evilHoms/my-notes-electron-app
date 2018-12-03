@@ -1,50 +1,88 @@
-// Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require('electron')
+const dotenv = require('dotenv')
+const path = require('path')
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+const {
+  getAllNotesIds,
+  createNote,
+  getNote,
+  isPathExists,
+  clearPath,
+  removeFile,
+} = require('./fs-functions')
+const { createMainNoteHtml } = require('./createHtml')
 
-function createWindow () {
+dotenv.config();
+clearPath(path.join(__dirname, 'html'))
+
+const notesPath = path.join(__dirname, process.env.NOTES_PATH)
+const notesIdsArray = getAllNotesIds(notesPath)
+const notesDataArray = []
+
+if (notesIdsArray.length) {
+  notesIdsArray.forEach((noteId, index) => {
+    notesDataArray.push(getNote(noteId))
+    if (!isPathExists(path.join(__dirname, `html/${noteId}.html`))) {
+      index === 0 ?
+        createMainNoteHtml(notesDataArray[index]) :
+        console.log('CREATE CHILD NOTE HTML')
+    } 
+  })
+} else {
+  const newNote = createNote();
+  notesDataArray.push(newNote)
+  notesIdsArray.push(newNote.id)
+  createMainNoteHtml(notesDataArray[0])
+}
+
+// let childWindow
+
+const createMainWindow = ({ id }) => {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  notesDataArray[0].browserWindow = new BrowserWindow({
+    width: 400,
+    height: 400,
+    frame: false,
+    // TODO add resize, save window size and position on screen
+    resizable: false,
+  })
 
-  // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  notesDataArray[0].browserWindow.loadFile(`html/${id}.html`)
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
+  notesDataArray[0].browserWindow.on('closed', function () {
+    removeFile(path.join(__dirname, `html/${notesDataArray[0].id}.html`))
+    notesDataArray[0].browserWindow = null
   })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+// TODO create all child windows
+// const createAnotherWindow = () => {
+//   childWindow = new BrowserWindow({
+//     width: 400,
+//     height: 400,
+//     frame: false,
+//     resizable: false,
+//     parent: mainWindow,
+//   })
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
+//   childWindow.loadFile('index.html')
+
+//   childWindow.on('closed', function () {
+//     childWindow = null
+//   })
+// }
+
+app.on('ready', () => { createMainWindow(notesDataArray[0]); /*createAnotherWindow();*/ })
+
+app.on('window-all-closed',  () => {
   if (process.platform !== 'darwin') {
+    clearPath(path.join(__dirname, 'html'))
     app.quit()
   }
 })
 
-app.on('activate', function () {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
+app.on('activate', () => {
+  if (notesDataArray[0].browserWindow === null) {
+    createMainWindow(notesDataArray[0])
   }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

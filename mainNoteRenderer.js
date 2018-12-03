@@ -4,7 +4,6 @@ const {
   handleNoteChange,
 } = require('./functions');
 
-const root = document.querySelector('#root');
 const closeBtn = document.querySelector('.close-btn');
 const minimizeBtn = document.querySelector('.minimize-btn');
 const titleField = document.querySelector('.title-input');
