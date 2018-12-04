@@ -26,7 +26,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
           <textarea class="note-area" data-id="${id}" data-type="note">${note}</textarea>
         </section>
         <script>
-          require('../mainNoteRenderer.js')
+          require('../noteRenderer.js')
         </script>
       </body>
     </html> 
@@ -58,7 +58,7 @@ const createChildNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text h
           <textarea class="note-area" data-id="${id}" data-type="note">${note}</textarea>
         </section>
         <script>
-          require('../mainNoteRenderer.js')
+          require('../noteRenderer.js')
         </script>
       </body>
     </html> 

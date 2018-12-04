@@ -67,7 +67,9 @@ const clearPath = (dir) => {
 }
 
 const removeFile = (dir) => {
-  fs.unlinkSync(dir)
+  fs.unlink(dir, (err) => {
+    if (err) throw new Error(err)
+  })
 }
 
 module.exports = {

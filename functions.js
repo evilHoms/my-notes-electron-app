@@ -1,5 +1,6 @@
 const { ipcRenderer, remote } = require('electron')
-const { getNotePromise, writeNote, createNote } = require('./fs-functions')
+const path = require('path')
+const { getNotePromise, writeNote, createNote, removeFile } = require('./fs-functions')
 const { createNoteWindow } = require('./createWindows')
 const { createChildNoteHtml } = require('./createHtml')
 
@@ -11,14 +12,17 @@ const debounce = (func, delay) => {
   }
 }
 
-const handleCloseBtnClick = () => {
-  const window = remote.getCurrentWindow();
-  window.close();
+const handleCloseBtnClick = (e, noteId) => {
+  console.log(noteId)
+  removeFile(path.join(__dirname, `html/${noteId}.html`))
+  removeFile(path.join(__dirname, `data/notes/${noteId}.json`))
+  const window = remote.getCurrentWindow()
+  window.close()
 }
 
 const handleMinimizeBtnClick = () => {
   const window = remote.getCurrentWindow();
-  window.minimize();
+  window.minimize()
 }
 
 const handleAddBtnClick = () => {

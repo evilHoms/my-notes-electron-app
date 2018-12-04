@@ -1,8 +1,8 @@
 const { BrowserWindow, remote } = require('electron')
+const { removeFile } = require('./fs-functions')
 
 const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => {
   const { id } = noteItem
-  console.log(remote ? remote.BrowserWindow : 'null')
   const CheckedBrowserWindow = isRemote ? remote.BrowserWindow : BrowserWindow
   const browserWindow = new CheckedBrowserWindow({
     width: 400,
@@ -15,8 +15,11 @@ const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => 
 
   browserWindow.loadFile(`html/${id}.html`)
 
+  // closed not working
   browserWindow.on('closed', () => {
-    removeFile(path.join(__dirname, `html/${id}.html`))
+    // TODO close all windows, when master mindow closes
+    // removeFile(path.join(__dirname, `html/${id}.html`))
+    // removeFile(path.join(__dirname, `data/notes/${id}.json`))
     browserWindow = null
   })
 
