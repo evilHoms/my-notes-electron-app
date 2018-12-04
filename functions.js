@@ -1,6 +1,12 @@
 const { ipcRenderer, remote } = require('electron')
 const path = require('path')
-const { getNotePromise, writeNote, createNote, removeFile } = require('./fs-functions')
+const {
+  getNotePromise,
+  writeNote,
+  createNote,
+  removeFile,
+  clearPath,
+} = require('./fs-functions')
 const { createNoteWindow } = require('./createWindows')
 const { createChildNoteHtml } = require('./createHtml')
 
@@ -13,11 +19,19 @@ const debounce = (func, delay) => {
 }
 
 const handleCloseBtnClick = (e, noteId) => {
-  console.log(noteId)
-  removeFile(path.join(__dirname, `html/${noteId}.html`))
-  removeFile(path.join(__dirname, `data/notes/${noteId}.json`))
-  const window = remote.getCurrentWindow()
-  window.close()
+  getNotePromise(noteId)
+    .then(data => {
+      if (data.isMaster) {
+        clearPath(path.join(__dirname, 'html'))
+        remote.app.quit();
+      } else {
+        removeFile(path.join(__dirname, `html/${noteId}.html`))
+        removeFile(path.join(__dirname, `data/notes/${noteId}.json`))
+        const window = remote.getCurrentWindow()
+        window.close()
+      }
+    })
+    .catch(err => { throw new Error(err) })
 }
 
 const handleMinimizeBtnClick = () => {
