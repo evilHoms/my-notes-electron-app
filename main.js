@@ -1,4 +1,4 @@
-const { app } = require('electron')
+const { app, ipcMain } = require('electron')
 const dotenv = require('dotenv')
 const path = require('path')
 
@@ -17,13 +17,12 @@ clearPath(path.join(__dirname, 'html'))
 
 const notesPath = path.join(__dirname, process.env.NOTES_PATH)
 const notesIdsArray = getAllNotesIds(notesPath)
-const notesDataArray = []
+global.notesDataArray = []
 
 if (notesIdsArray.length) {
   notesIdsArray.forEach((noteId, index) => {
     const note = getNote(noteId)
     notesDataArray.push(note)
-    console.log(noteId)
     if (!isPathExists(path.join(__dirname, `html/${noteId}.html`))) {
       note.isMaster ?
         createMainNoteHtml(notesDataArray[index]) :
@@ -37,26 +36,9 @@ if (notesIdsArray.length) {
   createMainNoteHtml(notesDataArray[0])
 }
 
-// let childWindow
-
-
-
-// TODO create all child windows
-// const createAnotherWindow = () => {
-//   childWindow = new BrowserWindow({
-//     width: 400,
-//     height: 400,
-//     frame: false,
-//     resizable: false,
-//     parent: mainWindow,
-//   })
-
-//   childWindow.loadFile('index.html')
-
-//   childWindow.on('closed', function () {
-//     childWindow = null
-//   })
-// }
+ipcMain.on( "setNotesDataArray", ( event, notesDataArray ) => {
+  global.notesDataArray = notesDataArray;
+} );
 
 app.on('ready', () => {
   const mainNote = notesDataArray.find((item) => (item.isMaster))

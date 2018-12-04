@@ -1,8 +1,10 @@
-const { BrowserWindow } = require('electron')
+const { BrowserWindow, remote } = require('electron')
 
-const createNoteWindow = (noteItem, parentNoteItem = null) => {
+const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => {
   const { id } = noteItem
-  const browserWindow = new BrowserWindow({
+  console.log(remote ? remote.BrowserWindow : 'null')
+  const CheckedBrowserWindow = isRemote ? remote.BrowserWindow : BrowserWindow
+  const browserWindow = new CheckedBrowserWindow({
     width: 400,
     height: 400,
     frame: false,

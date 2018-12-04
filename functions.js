@@ -1,5 +1,7 @@
-const remote = require('electron').remote
-const { getNotePromise, writeNote } = require('./fs-functions')
+const { ipcRenderer, remote } = require('electron')
+const { getNotePromise, writeNote, createNote } = require('./fs-functions')
+const { createNoteWindow } = require('./createWindows')
+const { createChildNoteHtml } = require('./createHtml')
 
 const debounce = (func, delay) => {
   let timer = null;
@@ -20,7 +22,15 @@ const handleMinimizeBtnClick = () => {
 }
 
 const handleAddBtnClick = () => {
-  console.log('add new note');
+  const isRemote = true
+  const newNote = createNote();
+  const notesDataArray = remote.getGlobal( "notesDataArray" )
+  //console.log(notesDataArray)
+  const mainNote = notesDataArray.find((item) => (item.isMaster))
+  createChildNoteHtml(newNote)
+  newNote.browserWindow = createNoteWindow(newNote, mainNote, isRemote)
+  notesDataArray.push(newNote)
+  ipcRenderer.send( "setNotesDataArray", notesDataArray );
 }
 
 const handleNoteChange = debounce((e) => {
