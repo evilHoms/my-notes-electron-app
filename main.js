@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app } = require('electron')
 const dotenv = require('dotenv')
 const path = require('path')
 
@@ -8,9 +8,9 @@ const {
   getNote,
   isPathExists,
   clearPath,
-  removeFile,
 } = require('./fs-functions')
-const { createMainNoteHtml } = require('./createHtml')
+const { createMainNoteHtml, createChildNoteHtml } = require('./createHtml')
+const { createNoteWindow } = require('./createWindows')
 
 dotenv.config();
 clearPath(path.join(__dirname, 'html'))
@@ -21,15 +21,17 @@ const notesDataArray = []
 
 if (notesIdsArray.length) {
   notesIdsArray.forEach((noteId, index) => {
-    notesDataArray.push(getNote(noteId))
+    const note = getNote(noteId)
+    notesDataArray.push(note)
+    console.log(noteId)
     if (!isPathExists(path.join(__dirname, `html/${noteId}.html`))) {
-      index === 0 ?
+      note.isMaster ?
         createMainNoteHtml(notesDataArray[index]) :
-        console.log('CREATE CHILD NOTE HTML')
+        createChildNoteHtml(notesDataArray[index])
     } 
   })
 } else {
-  const newNote = createNote();
+  const newNote = createNote(true);
   notesDataArray.push(newNote)
   notesIdsArray.push(newNote.id)
   createMainNoteHtml(notesDataArray[0])
@@ -37,23 +39,7 @@ if (notesIdsArray.length) {
 
 // let childWindow
 
-const createMainWindow = ({ id }) => {
-  // Create the browser window.
-  notesDataArray[0].browserWindow = new BrowserWindow({
-    width: 400,
-    height: 400,
-    frame: false,
-    // TODO add resize, save window size and position on screen
-    resizable: false,
-  })
 
-  notesDataArray[0].browserWindow.loadFile(`html/${id}.html`)
-
-  notesDataArray[0].browserWindow.on('closed', function () {
-    removeFile(path.join(__dirname, `html/${notesDataArray[0].id}.html`))
-    notesDataArray[0].browserWindow = null
-  })
-}
 
 // TODO create all child windows
 // const createAnotherWindow = () => {
@@ -72,7 +58,12 @@ const createMainWindow = ({ id }) => {
 //   })
 // }
 
-app.on('ready', () => { createMainWindow(notesDataArray[0]); /*createAnotherWindow();*/ })
+app.on('ready', () => {
+  const mainNote = notesDataArray.find((item) => (item.isMaster))
+  notesDataArray.forEach((note) => {
+    note.browserWindow = createNoteWindow(note, note.isMaster ? null : mainNote)
+  })
+})
 
 app.on('window-all-closed',  () => {
   if (process.platform !== 'darwin') {
@@ -82,7 +73,10 @@ app.on('window-all-closed',  () => {
 })
 
 app.on('activate', () => {
-  if (notesDataArray[0].browserWindow === null) {
-    createMainWindow(notesDataArray[0])
+  const mainNote = notesDataArray.find((item) => (item.isMaster))
+  if (mainNote.browserWindow === null) {
+    notesDataArray.forEach((note) => {
+      note.browserWindow = createNoteWindow(note, note.isMaster ? null : mainNote)
+    })
   }
 })

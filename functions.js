@@ -19,6 +19,10 @@ const handleMinimizeBtnClick = () => {
   window.minimize();
 }
 
+const handleAddBtnClick = () => {
+  console.log('add new note');
+}
+
 const handleNoteChange = debounce((e) => {
   getNotePromise(e.target.dataset.id)
     .then(data => {
@@ -39,6 +43,7 @@ const insertStyles = styles => {
 module.exports = {
   handleCloseBtnClick,
   handleMinimizeBtnClick,
+  handleAddBtnClick,
   handleNoteChange,
   insertStyles,
 };

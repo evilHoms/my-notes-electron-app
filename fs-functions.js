@@ -33,12 +33,13 @@ const writeNote = (data) => {
   });
 }
 
-const createNote = () => {
+const createNote = (isMaster = false) => {
   const noteId = uniqId();
   const data = {
     id: noteId,
     title: 'Untitled',
     note: 'Enter note text here...',
+    isMaster,
   }
   fs.writeFileSync(path.join(__dirname, `data/notes/${noteId}.json`), JSON.stringify(data));
   return data;
