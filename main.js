@@ -44,7 +44,28 @@ app.on('ready', () => {
   const mainNote = notesDataArray.find((item) => (item.isMaster))
   notesDataArray.forEach((note) => {
     note.browserWindow = createNoteWindow(note, note.isMaster ? null : mainNote)
+
+    note.isMaster && note.browserWindow.on('restore', () => {
+      notesDataArray.forEach(note => {
+        if (!note.isMaster) {
+          note.browserWindow.minimize()
+          note.browserWindow = createNoteWindow(note, mainNote)
+        }
+      })
+    })
+
   })
+
+  // TODO configure tray
+  // tray = new Tray('/path/to/my/icon')
+  // const contextMenu = Menu.buildFromTemplate([
+  //   {label: 'Item1', type: 'radio'},
+  //   {label: 'Item2', type: 'radio'},
+  //   [1],
+    
+  // ])
+  // enu.items.checked is my application.')
+  // con.setContextMenu(contextMenu)
 })
 
 app.on('window-all-closed',  () => {

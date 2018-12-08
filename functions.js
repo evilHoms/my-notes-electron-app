@@ -74,4 +74,5 @@ module.exports = {
   handleAddBtnClick,
   handleNoteChange,
   insertStyles,
+  debounce,
 };
