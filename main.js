@@ -1,6 +1,7 @@
 const { app, ipcMain } = require('electron')
 const dotenv = require('dotenv')
 const path = require('path')
+dotenv.config();
 
 const {
   getAllNotesIds,
@@ -12,9 +13,7 @@ const {
 const { createMainNoteHtml, createChildNoteHtml } = require('./createHtml')
 const { createNoteWindow } = require('./createWindows')
 
-dotenv.config();
 clearPath(path.join(__dirname, 'html'))
-
 const notesPath = path.join(__dirname, process.env.NOTES_PATH)
 const notesIdsArray = getAllNotesIds(notesPath)
 global.notesDataArray = []

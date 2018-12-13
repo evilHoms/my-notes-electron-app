@@ -1,0 +1,5 @@
+{
+  "main": "config.js",
+  "name": "config",
+  "private": true
+}

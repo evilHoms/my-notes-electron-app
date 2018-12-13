@@ -9,6 +9,7 @@ const {
 } = require('./fs-functions')
 const { createNoteWindow } = require('./createWindows')
 const { createChildNoteHtml } = require('./createHtml')
+const { getConfig, setConfig } = require('./config')
 
 const debounce = (func, delay) => {
   let timer = null;
@@ -16,6 +17,11 @@ const debounce = (func, delay) => {
     timer && clearTimeout(timer)
     timer = setTimeout(() => func(...props), delay)
   }
+}
+
+const kebabToCamelCase = (str) => {
+  return str.split('-').map((item, index) => (
+    index > 0 ? item[0].toUpperCase() + item.slice(1) : item )).join('')
 }
 
 const handleCloseBtnClick = (e, noteId) => {
@@ -26,7 +32,7 @@ const handleCloseBtnClick = (e, noteId) => {
         remote.app.quit();
       } else {
         removeFile(path.join(__dirname, `html/${noteId}.html`))
-        removeFile(path.join(__dirname, `data/notes/${noteId}.json`))
+        removeFile(path.join(__dirname, `${getConfig().notesPath}/${noteId}.json`))
         const window = remote.getCurrentWindow()
         window.close()
       }
@@ -43,7 +49,6 @@ const handleAddBtnClick = () => {
   const isRemote = true
   const newNote = createNote();
   const notesDataArray = remote.getGlobal( "notesDataArray" )
-  //console.log(notesDataArray)
   const mainNote = notesDataArray.find((item) => (item.isMaster))
   createChildNoteHtml(newNote)
   newNote.browserWindow = createNoteWindow(newNote, mainNote, isRemote)
@@ -51,7 +56,7 @@ const handleAddBtnClick = () => {
   ipcRenderer.send( "setNotesDataArray", notesDataArray );
 }
 
-const handleNoteChange = debounce((e) => {
+const handleNoteChange = debounce(e => {
   getNotePromise(e.target.dataset.id)
     .then(data => {
       data[e.target.dataset.type] = e.target.value
@@ -68,9 +73,15 @@ const insertStyles = styles => {
   head.appendChild(style)
 }
 
+const handleConfigChange = debounce(e => {
+  const storedFieldName = kebabToCamelCase(e.target.dataset.type)
+  setConfig({ [storedFieldName]: e.target.value })
+}, 2000)
+
 module.exports = {
   handleCloseBtnClick,
   handleMinimizeBtnClick,
+  handleConfigChange,
   handleAddBtnClick,
   handleNoteChange,
   insertStyles,

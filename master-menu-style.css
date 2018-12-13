@@ -1,0 +1,46 @@
+.master-menu-wrapper {
+  -webkit-app-region: no-drag;
+  position: absolute;
+  z-index: 100;
+  right: -80vw;
+  top: 0;
+  bottom: 0;
+  left: 100vw;
+  box-shadow: 0 0 20px 1px #555;
+  transform: rotate(20deg) translateY(10vh) translateX(8vw);
+  transition: 1s;
+}
+
+.master-note-menu {
+  -webkit-app-region: no-drag;
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  transition: 1s;
+  overflow: hidden;
+}
+
+.menu {
+  width: 100vw;
+  height: 100vh;
+  margin-left: -80vw;
+  background: var(--color-white);
+  transition: 1s;
+}
+
+.master-menu-wrapper:hover {
+  left: 20vw;
+  right: 0;
+  transform: rotate(0);
+}
+
+.master-menu-wrapper .master-note-menu {
+  left: 0;
+}
+
+.master-menu-wrapper:hover .menu {
+  margin-left: 0;
+}

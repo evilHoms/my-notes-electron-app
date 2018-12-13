@@ -1,8 +1,14 @@
 const electron = require('electron')
 const { BrowserWindow, remote } = require('electron')
-const { debounce } = require('./functions')
 const { writeNote } = require('./fs-functions')
 
+const debounce = (func, delay) => {
+  let timer = null;
+  return (...props) => {
+    timer && clearTimeout(timer)
+    timer = setTimeout(() => func(...props), delay)
+  }
+}
 
 const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => {
   const updatedNoteItem = { ...noteItem }
