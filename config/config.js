@@ -5,9 +5,16 @@ const ensureStoreExists = () => {
   const storePath = path.join(__dirname, 'store.json')
   if (!fs.existsSync(storePath)) {
     const baseConfig = JSON.stringify({
-      notesPath: process.env.NOTES_PATH,
+      notesPath: path.join(__dirname, '..', process.env.NOTES_PATH),
       noteWidth: process.env.NOTE_WIDTH,
       noteHeight: process.env.NOTE_HEIGHT,
+      titleFontSize: '24px',
+      titleFontColor: '#232327',
+      titleFontFamily: 'Caveat',
+      fontSize: '20px',
+      fontColor: '#232327',
+      fontFamily: 'Caveat',
+      background: path.join(__dirname, '..', 'accets/images/paper.jpg')
     })
     fs.writeFileSync(storePath, baseConfig)
   }
