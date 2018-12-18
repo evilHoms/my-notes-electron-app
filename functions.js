@@ -32,7 +32,7 @@ const handleCloseBtnClick = (e, noteId) => {
         remote.app.quit();
       } else {
         removeFile(path.join(__dirname, `html/${noteId}.html`))
-        removeFile(path.join(__dirname, `${getConfig().notesPath}/${noteId}.json`))
+        removeFile(`${getConfig().notesPath}/${noteId}.json`)
         const window = remote.getCurrentWindow()
         window.close()
       }
@@ -64,7 +64,7 @@ const handleNoteChange = debounce(e => {
     })
     .then(updatedData => writeNote(updatedData))
     .catch(err => { throw err })
-}, 2000)
+}, 200)
 
 const insertStyles = styles => {
   const head = document.head
@@ -76,7 +76,12 @@ const insertStyles = styles => {
 const handleConfigChange = debounce(e => {
   const storedFieldName = kebabToCamelCase(e.target.dataset.type)
   setConfig({ [storedFieldName]: e.target.value })
-}, 2000)
+}, 1000)
+
+const relaunch = () => {
+  remote.app.relaunch()
+  remote.app.exit()
+}
 
 module.exports = {
   handleCloseBtnClick,
@@ -86,4 +91,5 @@ module.exports = {
   handleNoteChange,
   insertStyles,
   debounce,
+  relaunch,
 };

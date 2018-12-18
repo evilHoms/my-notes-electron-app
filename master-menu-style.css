@@ -27,8 +27,53 @@
   width: 100vw;
   height: 100vh;
   margin-left: -80vw;
+  padding: 20px calc(20vw + 20px) 40px 20px;
   background: var(--color-white);
   transition: 1s;
+}
+
+.menu-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5vh;
+}
+
+.add-btn {
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-main-light);
+  box-shadow: 0 0 5px 2px var(--color-main-dark);
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 700;
+  transform: scale(1.0);
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: var(--color-main-dark);
+  box-shadow: 0 0 5px 2px var(--color-main-light);
+  transform: scale(1.1);
+}
+
+.menu-options {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  margin-bottom: 5vh;
+}
+
+.menu label {
+  display: flex;
+}
+
+.menu-input-title {
+  display: inline-block;
+  width: 30vw;
+  min-width: 100px;
 }
 
 .master-menu-wrapper:hover {
@@ -43,4 +88,10 @@
 
 .master-menu-wrapper:hover .menu {
   margin-left: 0;
+}
+
+.font-color-sample,
+.title-font-color-sample {
+  width: 20px;
+  height: 20px;
 }

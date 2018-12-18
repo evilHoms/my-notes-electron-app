@@ -1,5 +1,6 @@
 const electron = require('electron')
 const { BrowserWindow, remote } = require('electron')
+const config = require('./config').getConfig()
 const { writeNote } = require('./fs-functions')
 
 const debounce = (func, delay) => {
@@ -15,8 +16,8 @@ const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => 
   updatedNoteItem.browserWindow && delete updatedNoteItem.browserWindow
   const { id, isMaster, relativeX, relativeY, relativeWidth, relativeHeight } = noteItem
   const screen = electron.screen.getPrimaryDisplay().workAreaSize
-  const defaultNoteWidth = parseInt(process.env.NOTE_WIDTH)
-  const defaultNoteHeight = parseInt(process.env.NOTE_HEIGHT)
+  const defaultNoteWidth = parseInt(config.noteWidth)
+  const defaultNoteHeight = parseInt(config.noteHeight)
   const throttledWriteNote = debounce((updatedNoteItem) => writeNote(updatedNoteItem), 1000)
 
   const x = relativeX ? screen.width * relativeX : null

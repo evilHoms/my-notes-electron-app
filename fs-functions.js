@@ -5,7 +5,7 @@ const path = require('path')
 const { getConfig } = require('./config')
 
 const openNotesFile = () => {
-  ensureExists(__dirname + getConfig().notesPath);
+  ensureExists(getConfig().notesPath);
 }
 
 const getAllNotesIds = (notesFolder) => {
@@ -17,12 +17,12 @@ const getAllNotesIds = (notesFolder) => {
 }
 
 const getNote = (noteId) => {
-  return JSON.parse(fs.readFileSync(path.join(__dirname, `${getConfig().notesPath}/${noteId}.json`)))
+  return JSON.parse(fs.readFileSync(`${getConfig().notesPath}/${noteId}.json`))
 }
 
 const getNotePromise = (noteId) => {
   return new Promise((resolve, reject) => {
-    fs.readFile(path.join(__dirname, `${getConfig().notesPath}/${noteId}.json`), (err, data) => {
+    fs.readFile(`${getConfig().notesPath}/${noteId}.json`, (err, data) => {
       if (err) reject(err)
       resolve(JSON.parse(data))
     })
@@ -30,7 +30,7 @@ const getNotePromise = (noteId) => {
 }
 
 const writeNote = (data) => {
-  fs.writeFile(path.join(__dirname, `${getConfig().notesPath}/${data.id}.json`), JSON.stringify(data), (err) => {
+  fs.writeFile(`${getConfig().notesPath}/${data.id}.json`, JSON.stringify(data), (err) => {
     if (err) throw err
   });
 }
@@ -43,7 +43,7 @@ const createNote = (isMaster = false) => {
     note: 'Enter note text here...',
     isMaster,
   }
-  fs.writeFileSync(path.join(__dirname, `${getConfig().notesPath}/${noteId}.json`), JSON.stringify(data));
+  fs.writeFileSync(`${getConfig().notesPath}/${noteId}.json`, JSON.stringify(data));
   return data;
 }
 

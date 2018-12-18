@@ -9,11 +9,34 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: Roboto;
+  src: url('./accets/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('./accets/fonts/Roboto-Bold.ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Merriweather;
+  src: url('./accets/fonts/Merriweather-Regular.ttf');
+}
+
+@font-face {
+  font-family: Merriweather;
+  src: url('./accets/fonts/Merriweather-Bold.ttf');
+  font-weight: bold;
+}
+
 :root {
   --color-main: #ede4db;
   --color-main-dark: #dcd3ca;
   --color-main-light: #fef5ec;
   --color-white: #ffffff;
+  --color-dark: #232327;
 
   --font-main: 'Caveat', Arial, Helvetica, sans-serif;
 }
@@ -54,6 +77,7 @@ body {
   margin: 10px auto 2vh;
   padding: 7px;
   border: none;
+  outline: none;
   resize: none;
   background-color: transparent;
   font-family: var(--font-main);
@@ -65,7 +89,6 @@ body {
   border-radius: 50%;
   width: 20px;
   height: 20px;
-  margin: 10px;
   background-color: var(--color-main-light);
   box-shadow: 0 0 5px 2px var(--color-main-dark);
   font-family: var(--font-main);
@@ -88,24 +111,36 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: var(--color-white) url('./accets/images/paper.jpg') center / cover no-repeat;
+  background-color: var(--color-white);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .child-note-menu-wrapper {
   -webkit-app-region: no-drag;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 20px;
+  top: 20px;
 }
 
 .title-input {
   -webkit-app-region: no-drag;
+  width: 300px;
+  max-width: 100%;
   margin: 20px 0 0 2.5vw;
   padding: 7px;
   border: none;
+  outline: none;
+  border-bottom: 1px solid transparent;
   font-family: var(--font-main);
   font-weight: 700;
   font-size: 24px;
   font-weight: 700;
   background-color: transparent;
+  transition: 0.5s;
+}
+
+.title-input:focus {
+  border-bottom: 1px solid var(--color-dark);
 }
