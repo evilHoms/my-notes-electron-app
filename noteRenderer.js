@@ -25,6 +25,7 @@ const changeFfInput = document.querySelector('.change-ff-input')
 const changePathInput = document.querySelector('.change-path-input')
 const menuRelaunchBtn = document.querySelector('.menu-relaunch')
 const changeBackgroundInput = document.querySelector('.change-background-input')
+const changeMenuBackgroundInput = document.querySelector('.change-menu-background-input')
 
 // Common
 closeBtn.addEventListener('click', (e) => handleCloseBtnClick(e, root.dataset.id))
@@ -41,6 +42,7 @@ changeTitleFzInput && changeTitleFzInput.addEventListener('input', handleConfigC
 changeTitleFfInput && changeTitleFfInput.addEventListener('input', handleConfigChange)
 changePathInput && changePathInput.addEventListener('input', handleConfigChange)
 changeBackgroundInput && changeBackgroundInput.addEventListener('input', handleConfigChange)
+changeMenuBackgroundInput && changeMenuBackgroundInput.addEventListener('input', handleConfigChange)
 menuRelaunchBtn && menuRelaunchBtn.addEventListener('click', relaunch)
 
 const config = getConfig()
@@ -52,3 +54,4 @@ changeColorInput && (changeColorInput.value = config.fontColor)
 changeFzInput && (changeFzInput.value = config.fontSize)
 changePathInput && (changePathInput.value = config.notesPath)
 changeBackgroundInput && (changeBackgroundInput.value = config.background)
+changeMenuBackgroundInput && (changeMenuBackgroundInput.value = config.menuBackground)

@@ -14,7 +14,8 @@ const ensureStoreExists = () => {
       fontSize: '20px',
       fontColor: '#232327',
       fontFamily: 'Caveat',
-      background: path.join(__dirname, '..', 'accets/images/paper.jpg')
+      background: path.join(__dirname, '..', 'accets/images/paper.jpg'),
+      menuBackground: '#ffffff',
     })
     fs.writeFileSync(storePath, baseConfig)
   }

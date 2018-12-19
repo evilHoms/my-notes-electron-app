@@ -4,14 +4,7 @@ const path = require('path')
 const config = require('./config').getConfig()
 
 const isBackgroundColor = (value) => {
-  if (value[0] === '#' || !value.split('').find(item => (item === '.' || item === '/'))) {
-    console.log(value)
-    console.log('true')
-    return true
-  }
-  console.log(value)
-  console.log('false')
-  return false
+  return value[0] === '#' || !value.split('').find(item => (item === '.' || item === '/'))
 }
 
 const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text here...' }) => {
@@ -29,7 +22,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
           <div
             class="note-face"
             style="
-              background-image: ${isBackgroundColor(config.background) ? null : `url(${config.background})`};
+              background-image: ${isBackgroundColor(config.background) ? 'none' : `url(${config.background})`};
               background-color: ${isBackgroundColor(config.background) ? config.background : '#ffffff'};
             ">
             <header class="top-panel">
@@ -56,24 +49,48 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
               data-type="note">${note}</textarea>
           </div>
           <div class="master-menu-wrapper">
-            <div class="master-note-menu">
+            <div
+              class="master-note-menu"
+              style="
+                background-image: ${isBackgroundColor(config.menuBackground) ? 'none' : `url(${config.menuBackground})`};
+                background-color: ${isBackgroundColor(config.menuBackground) ? config.menuBackground : '#ffffff'};
+              ">
               <nav class="menu">
                 <div class="menu-controls">
-                  <button class="add-btn">+</button>
-                  <button class="close-btn">X</button>
+                  <button class="add-btn">
+                    +
+                  </button>
+                  <div class="menu-hint">
+                    Add one more note.
+                  </div>
+                  <button class="close-btn">
+                    X
+                  </button>
+                  <div class="menu-hint">
+                    Close application (All notes will be saved).
+                  </div>
                 </div>
                 <div class="menu-options">
                   <label>
                     <span class="menu-input-title">Titles Font Size</span>
+                    <div class="menu-hint">
+                      Edit size of font for title in all notes.
+                    </div>
                     <input class="change-title-fz-input" placeholder="Titles font size" data-type="title-font-size" />
                   </label>
                   <label>
                     <span class="menu-input-title">Titles Font Color</span>
+                    <div class="menu-hint">
+                      Edit color of font for title in all notes.
+                    </div>
                     <input class="change-title-color-input" placeholder="Titles font color" data-type="title-font-color" />
                     <div class="title-font-color-sample" style="background-color: ${config.titleFontColor}"></div>
                   </label>
                   <label>
                     <span class="menu-input-title">Titles Font Family</span>
+                    <div class="menu-hint">
+                      Edit family of font for title in all notes.
+                    </div>
                     <select class="change-title-ff-input" data-type="title-font-family">
                       <option value="Caveat">Caveat</option>
                       <option value="Roboto">Roboto</option>
@@ -82,15 +99,24 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                   </label>
                   <label>
                     <span class="menu-input-title">Font Size</span>
+                    <div class="menu-hint">
+                      Edit size of note's text in all notes.
+                    </div>
                     <input class="change-fz-input" placeholder="Notes font size" data-type="font-size" />
                   </label>
                   <label>
                     <span class="menu-input-title">Font Color</span>
+                    <div class="menu-hint">
+                      Edit color of note's text in all notes.
+                    </div>
                     <input class="change-color-input" placeholder="Titles font color" data-type="font-color" />
                     <div class="font-color-sample" style="background-color: ${config.fontColor}"></div>
                   </label>
                   <label>
                     <span class="menu-input-title">Font Family</span>
+                    <div class="menu-hint">
+                      Edit font family of note's text in all notes.
+                    </div>
                     <select class="change-ff-input" data-type="font-family">
                       <option value="Caveat">Caveat</option>
                       <option value="Roboto">Roboto</option>
@@ -99,10 +125,28 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                   </label>
                   <label>
                     <span class="menu-input-title">Background</span>
+                    <div class="menu-hint">
+                      Edit note's background in all notes. You can use hex colors (#ffffff for white, etc),
+                      common words (white, black, red, etc) or images, using absolute path, or path relative
+                      to app's root.
+                    </div>
                     <input class="change-background-input" placeholder="Background" data-type="background" />
                   </label>
                   <label>
+                    <span class="menu-input-title">Menu Background</span>
+                    <div class="menu-hint">
+                      Edit note's menu background in main note. You can use hex colors (#ffffff for white, etc),
+                      common words (white, black, red, etc) or images, using absolute path, or path relative
+                      to app's root.
+                    </div>
+                    <input class="change-menu-background-input" placeholder="Menu Background" data-type="menu-background" />
+                  </label>
+                  <label>
                     <span class="menu-input-title">Notes path</span>
+                    <div class="menu-hint">
+                      Edit path to store notes info. Default is app's root + data/notes path. Can be changed to have
+                      access for same notes in different OS in one machine.
+                    </div>
                     <input class="change-path-input" placeholder="Notes path" data-type="notes-path" />
                   </label>
                 </div>
@@ -136,7 +180,7 @@ const createChildNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text h
         <div
           class="note-face"
           style="
-            background-image: ${isBackgroundColor(config.background) ? null : `url(${config.background})`};
+            background-image: ${isBackgroundColor(config.background) ? 'none' : `url(${config.background})`};
             background-color: ${isBackgroundColor(config.background) ? config.background : '#ffffff'};
           ">
             <header class="top-panel">
