@@ -93,6 +93,8 @@
   left: 0;
   right: 0;
   opacity: 0;
+  padding: 20px;
+  transition: 0.5s;
 }
 
 .menu label:hover .menu-hint:hover {

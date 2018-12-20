@@ -21,6 +21,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
         <section id="root" data-id="${id}" data-type="parent">
           <div
             class="note-face"
+            data-type="face"
             style="
               background-image: ${isBackgroundColor(config.background) ? 'none' : `url(${config.background})`};
               background-color: ${isBackgroundColor(config.background) ? config.background : '#ffffff'};
@@ -51,6 +52,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
           <div class="master-menu-wrapper">
             <div
               class="master-note-menu"
+              data-type="menu"
               style="
                 background-image: ${isBackgroundColor(config.menuBackground) ? 'none' : `url(${config.menuBackground})`};
                 background-color: ${isBackgroundColor(config.menuBackground) ? config.menuBackground : '#ffffff'};
@@ -151,7 +153,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                   </label>
                 </div>
                 <div>
-                  Press <button class="menu-relaunch">Relaunch</button> to apply changes
+                  Press <button class="menu-relaunch">Relaunch</button> to apply changes for all notes
                 </div>
               </nav>
             </div>

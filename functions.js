@@ -19,6 +19,10 @@ const debounce = (func, delay) => {
   }
 }
 
+const isBackgroundColor = (value) => {
+  return value[0] === '#' || !value.split('').find(item => (item === '.' || item === '/'))
+}
+
 const kebabToCamelCase = (str) => {
   return str.split('-').map((item, index) => (
     index > 0 ? item[0].toUpperCase() + item.slice(1) : item )).join('')
@@ -75,12 +79,70 @@ const insertStyles = styles => {
 
 const handleConfigChange = debounce(e => {
   const storedFieldName = kebabToCamelCase(e.target.dataset.type)
+  applyOptionChange(e.target.dataset.type, e.target.value)
   setConfig({ [storedFieldName]: e.target.value })
 }, 1000)
 
 const relaunch = () => {
   remote.app.relaunch()
   remote.app.exit()
+}
+
+const applyOptionChange = (field, change) => {
+  switch (field) {
+    case 'font-size': {
+      const element = document.querySelector('[data-type="note"]')
+      element.style.fontSize = change
+      break
+    }
+    case 'title-font-size': {
+      const element = document.querySelector('[data-type="title"]')
+      element.style.fontSize = change
+      break
+    }
+    case 'font-color': {
+      const element = document.querySelector('[data-type="note"]')
+      element.style.color = change
+      break
+    }
+    case 'title-font-color': {
+      const element = document.querySelector('[data-type="title"]')
+      element.style.color = change
+      break
+    }
+    case 'font-family': {
+      const element = document.querySelector('[data-type="note"]')
+      element.style.fontFamily = change
+      break
+    }
+    case 'title-font-family': {
+      const element = document.querySelector('[data-type="title"]')
+      element.style.fontFamily = change
+      break
+    }
+    case 'background': {
+      const element = document.querySelector('[data-type="face"]')
+      if (isBackgroundColor(change)) {
+        element.style.backgroundColor = change
+        element.style.backgroundImage = 'none'
+      } else {
+        element.style.backgroundColor = '#ffffff'
+        element.style.backgroundImage = `url(${change})`
+      }
+      break
+    }
+    case 'menu-background': {
+      const element = document.querySelector('[data-type="menu"]')
+      if (isBackgroundColor(change)) {
+        element.style.backgroundColor = change
+        element.style.backgroundImage = 'none'
+      } else {
+        element.style.backgroundColor = '#ffffff'
+        element.style.backgroundImage = `url(${change})`
+      }
+      break
+    }
+  }
 }
 
 module.exports = {

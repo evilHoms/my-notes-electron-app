@@ -75,13 +75,26 @@ body {
   flex-grow: 10;
   width: 95vw;
   margin: 10px auto 2vh;
-  padding: 7px;
+  padding: 7px 20px 7px 7px;
   border: none;
   outline: none;
   resize: none;
   background-color: transparent;
   font-family: var(--font-main);
   font-size: 20px;
+}
+
+.note-area::-webkit-scrollbar {     
+  background-color: #fff;
+  width: 10px;
+  border-radius: 5px;
+}
+
+.note-area::-webkit-scrollbar-thumb:window-inactive,
+::-webkit-scrollbar-thumb {
+  background:  black;
+  width: 5px;
+  border-radius: 5px;
 }
 
 .close-btn {
