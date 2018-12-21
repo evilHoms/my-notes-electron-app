@@ -1,4 +1,4 @@
-const { app, ipcMain } = require('electron')
+const { app, ipcMain, Menu, Tray } = require('electron')
 const dotenv = require('dotenv')
 const path = require('path')
 dotenv.config();
@@ -38,7 +38,7 @@ if (notesIdsArray.length) {
 ipcMain.on( "setNotesDataArray", ( event, notesDataArray ) => {
   global.notesDataArray = notesDataArray;
 } );
-
+let tray = null;
 app.on('ready', () => {
   const mainNote = notesDataArray.find((item) => (item.isMaster))
   notesDataArray.forEach((note) => {
@@ -53,23 +53,22 @@ app.on('ready', () => {
       })
     })
 
+    tray = new Tray('./accets/images/note.png')
+    const contextMenu = Menu.buildFromTemplate([
+      {label: 'Item1', click() { console.log('1 click') }},
+      {label: 'Item2', click() { console.log('2 click') }},
+      {label: 'Item3', click() { console.log('3 click') }},
+      {label: 'Item4', click() { console.log('4 click') }}
+    ])
+    tray.setToolTip('Notes.')
+    tray.setContextMenu(contextMenu)
   })
-
-  // TODO configure tray
-  // tray = new Tray('/path/to/my/icon')
-  // const contextMenu = Menu.buildFromTemplate([
-  //   {label: 'Item1', type: 'radio'},
-  //   {label: 'Item2', type: 'radio'},
-  //   [1],
-    
-  // ])
-  // enu.items.checked is my application.')
-  // con.setContextMenu(contextMenu)
 })
 
 app.on('window-all-closed',  () => {
   if (process.platform !== 'darwin') {
     clearPath(path.join(__dirname, 'html'))
+    tray = null
     app.quit()
   }
 })
