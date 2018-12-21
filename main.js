@@ -40,6 +40,25 @@ ipcMain.on( "setNotesDataArray", ( event, notesDataArray ) => {
 } );
 let tray = null;
 app.on('ready', () => {
+  tray = new Tray('./accets/images/note.png')
+  const notesTrayItems = notesDataArray.map(note => ({
+    label: note.title,
+    click: () => {
+      note.browserWindow.focus()
+      // const isHidden = note.browserWindow.isHidden
+      // if (isHidden) {
+      //   note.browserWindow.show()
+      //   note.browserWindow.isHidden = false
+      // } else {
+      //   note.browserWindow.hide()
+      //   note.browserWindow.isHidden = true
+      // }
+    }
+  }))
+  const contextMenu = Menu.buildFromTemplate(notesTrayItems)
+  tray.setToolTip('Notes.')
+  tray.setContextMenu(contextMenu)
+
   const mainNote = notesDataArray.find((item) => (item.isMaster))
   notesDataArray.forEach((note) => {
     note.browserWindow = createNoteWindow(note, note.isMaster ? null : mainNote)
@@ -52,16 +71,6 @@ app.on('ready', () => {
         }
       })
     })
-
-    tray = new Tray('./accets/images/note.png')
-    const contextMenu = Menu.buildFromTemplate([
-      {label: 'Item1', click() { console.log('1 click') }},
-      {label: 'Item2', click() { console.log('2 click') }},
-      {label: 'Item3', click() { console.log('3 click') }},
-      {label: 'Item4', click() { console.log('4 click') }}
-    ])
-    tray.setToolTip('Notes.')
-    tray.setContextMenu(contextMenu)
   })
 })
 

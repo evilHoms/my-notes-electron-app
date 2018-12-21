@@ -28,7 +28,7 @@ const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => 
   const CheckedBrowserWindow = isRemote ? remote.BrowserWindow : BrowserWindow
   const browserWindow = new CheckedBrowserWindow({
     parent: isMaster ? null : parentNoteItem,
-    skipTaskbar: !isMaster,
+    skipTaskbar: true,
     resizable: true,
     frame: false,
     height,
