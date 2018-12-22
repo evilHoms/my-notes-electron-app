@@ -86,7 +86,6 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                       Edit color of font for title in all notes.
                     </div>
                     <input class="change-title-color-input" placeholder="Titles font color" data-type="title-font-color" />
-                    <div class="title-font-color-sample" style="background-color: ${config.titleFontColor}"></div>
                   </label>
                   <label>
                     <span class="menu-input-title">Titles Font Family</span>
@@ -112,7 +111,6 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                       Edit color of note's text in all notes.
                     </div>
                     <input class="change-color-input" placeholder="Titles font color" data-type="font-color" />
-                    <div class="font-color-sample" style="background-color: ${config.fontColor}"></div>
                   </label>
                   <label>
                     <span class="menu-input-title">Font Family</span>

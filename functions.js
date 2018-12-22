@@ -37,16 +37,23 @@ const handleCloseBtnClick = (e, noteId) => {
       } else {
         removeFile(path.join(__dirname, `html/${noteId}.html`))
         removeFile(`${getConfig().notesPath}/${noteId}.json`)
+        
+        const notesDataArray = remote.getGlobal( "notesDataArray" )
+        const filteredNotesDataArray = notesDataArray.filter(note => (note.id !== noteId))
+        
+        const tray = remote.getGlobal( "tray" )
+        const notesTrayItems = filteredNotesDataArray.map(note => ({
+          label: note.title,
+          click: () => note.browserWindow.focus(),
+        }))
+        const contextMenu = remote.Menu.buildFromTemplate(notesTrayItems)
+        tray.setContextMenu(contextMenu)
+
         const window = remote.getCurrentWindow()
         window.close()
       }
     })
     .catch(err => { throw new Error(err) })
-}
-
-const handleMinimizeBtnClick = () => {
-  const window = remote.getCurrentWindow();
-  window.minimize()
 }
 
 const handleAddBtnClick = () => {
@@ -57,6 +64,15 @@ const handleAddBtnClick = () => {
   createChildNoteHtml(newNote)
   newNote.browserWindow = createNoteWindow(newNote, mainNote, isRemote)
   notesDataArray.push(newNote)
+
+  const tray = remote.getGlobal( "tray" )
+  const notesTrayItems = notesDataArray.map(note => ({
+    label: note.title,
+    click: () => note.browserWindow.focus(),
+  }))
+  const contextMenu = remote.Menu.buildFromTemplate(notesTrayItems)
+  tray.setContextMenu(contextMenu)
+
   ipcRenderer.send( "setNotesDataArray", notesDataArray );
 }
 
@@ -147,7 +163,6 @@ const applyOptionChange = (field, change) => {
 
 module.exports = {
   handleCloseBtnClick,
-  handleMinimizeBtnClick,
   handleConfigChange,
   handleAddBtnClick,
   handleNoteChange,

@@ -38,7 +38,7 @@ if (notesIdsArray.length) {
 ipcMain.on( "setNotesDataArray", ( event, notesDataArray ) => {
   global.notesDataArray = notesDataArray;
 } );
-let tray = null;
+global.tray = null;
 app.on('ready', () => {
   tray = new Tray('./accets/images/note.png')
   const notesTrayItems = notesDataArray.map(note => ({
@@ -56,7 +56,7 @@ app.on('ready', () => {
     }
   }))
   const contextMenu = Menu.buildFromTemplate(notesTrayItems)
-  tray.setToolTip('Notes.')
+  tray.setToolTip('Notes')
   tray.setContextMenu(contextMenu)
 
   const mainNote = notesDataArray.find((item) => (item.isMaster))
