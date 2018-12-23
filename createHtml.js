@@ -40,7 +40,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
               />
             </header>
             <textarea
-              class="note-area"
+              class="note-area custom-scroll"
               style="
                 color: ${config.fontColor};
                 font-size: ${config.fontSize};
@@ -72,23 +72,23 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                     Close application (All notes will be saved).
                   </div>
                 </div>
-                <div class="menu-options">
+                <div class="menu-options custom-scroll">
                   <label>
-                    <span class="menu-input-title">Titles Font Size</span>
+                    <span class="menu-input-title">Titles Font Size:</span>
                     <div class="menu-hint">
                       Edit size of font for title in all notes.
                     </div>
                     <input class="change-title-fz-input" placeholder="Titles font size" data-type="title-font-size" />
                   </label>
                   <label>
-                    <span class="menu-input-title">Titles Font Color</span>
+                    <span class="menu-input-title">Titles Font Color:</span>
                     <div class="menu-hint">
                       Edit color of font for title in all notes.
                     </div>
                     <input class="change-title-color-input" placeholder="Titles font color" data-type="title-font-color" />
                   </label>
                   <label>
-                    <span class="menu-input-title">Titles Font Family</span>
+                    <span class="menu-input-title">Titles Font Family:</span>
                     <div class="menu-hint">
                       Edit family of font for title in all notes.
                     </div>
@@ -99,21 +99,21 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                     </select>
                   </label>
                   <label>
-                    <span class="menu-input-title">Font Size</span>
+                    <span class="menu-input-title">Font Size:</span>
                     <div class="menu-hint">
                       Edit size of note's text in all notes.
                     </div>
                     <input class="change-fz-input" placeholder="Notes font size" data-type="font-size" />
                   </label>
                   <label>
-                    <span class="menu-input-title">Font Color</span>
+                    <span class="menu-input-title">Font Color:</span>
                     <div class="menu-hint">
                       Edit color of note's text in all notes.
                     </div>
                     <input class="change-color-input" placeholder="Titles font color" data-type="font-color" />
                   </label>
                   <label>
-                    <span class="menu-input-title">Font Family</span>
+                    <span class="menu-input-title">Font Family:</span>
                     <div class="menu-hint">
                       Edit font family of note's text in all notes.
                     </div>
@@ -124,7 +124,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                     </select>
                   </label>
                   <label>
-                    <span class="menu-input-title">Background</span>
+                    <span class="menu-input-title">Background:</span>
                     <div class="menu-hint">
                       Edit note's background in all notes. You can use hex colors (#ffffff for white, etc),
                       common words (white, black, red, etc) or images, using absolute path, or path relative
@@ -133,7 +133,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                     <input class="change-background-input" placeholder="Background" data-type="background" />
                   </label>
                   <label>
-                    <span class="menu-input-title">Menu Background</span>
+                    <span class="menu-input-title">Menu Background:</span>
                     <div class="menu-hint">
                       Edit note's menu background in main note. You can use hex colors (#ffffff for white, etc),
                       common words (white, black, red, etc) or images, using absolute path, or path relative
@@ -142,7 +142,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
                     <input class="change-menu-background-input" placeholder="Menu Background" data-type="menu-background" />
                   </label>
                   <label>
-                    <span class="menu-input-title">Notes path</span>
+                    <span class="menu-input-title">Notes path:</span>
                     <div class="menu-hint">
                       Edit path to store notes info. Default is app's root + data/notes path. Can be changed to have
                       access for same notes in different OS in one machine.
@@ -200,7 +200,7 @@ const createChildNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text h
               </div>
             </header>
             <textarea
-              class="note-area"
+              class="note-area custom-scroll"
               style="
                 color: ${config.fontColor};
                 font-size: ${config.fontSize};

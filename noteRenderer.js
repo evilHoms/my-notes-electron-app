@@ -55,3 +55,8 @@ changeFzInput && (changeFzInput.value = config.fontSize)
 changePathInput && (changePathInput.value = config.notesPath)
 changeBackgroundInput && (changeBackgroundInput.value = config.background)
 changeMenuBackgroundInput && (changeMenuBackgroundInput.value = config.menuBackground)
+
+// Scroll input fields with possible big absolute path to end of line
+changePathInput.scrollLeft = changePathInput.scrollWidth;
+changeBackgroundInput.scrollLeft = changeBackgroundInput.scrollWidth;
+changeMenuBackgroundInput.scrollLeft = changeMenuBackgroundInput.scrollWidth;

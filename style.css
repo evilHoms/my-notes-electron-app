@@ -84,28 +84,26 @@ body {
   font-size: 20px;
 }
 
-.note-area::-webkit-scrollbar {     
+.custom-scroll::-webkit-scrollbar {     
   background-color: transparent;
   width: 10px;
   border-radius: 5px;
 }
 
-.note-area::-webkit-scrollbar-thumb:window-inactive,
-.note-area::-webkit-scrollbar-thumb {
+.custom-scroll::-webkit-scrollbar-thumb:window-inactive,
+.custom-scroll::-webkit-scrollbar-thumb {
   background:  transparent;
   border-radius: 5px;
 }
 
-.note-area:hover::-webkit-scrollbar {
+.custom-scroll:hover::-webkit-scrollbar {
   background-color: rgba(50, 50, 50, 0.1);
 }
 
-.note-area:hover::-webkit-scrollbar-thumb:window-inactive,
-.note-area:hover::-webkit-scrollbar-thumb {
+.custom-scroll:hover::-webkit-scrollbar-thumb:window-inactive,
+.custom-scroll:hover::-webkit-scrollbar-thumb {
   background-color: rgba(50, 50, 50, 0.3);
 }
-
-
 
 .close-btn {
   border: none;

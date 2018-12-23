@@ -73,14 +73,16 @@
 }
 
 .menu-options {
-  display: flex;
-  flex-direction: column;
-  align-items: space-between;
+  overflow-y: scroll;
   margin-bottom: 5vh;
+  max-height: 50vh;
+  font-family: Roboto, Arial, sans-serif;
 }
 
 .menu label {
   display: flex;
+  margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .menu label:hover .menu-hint {
@@ -103,8 +105,19 @@
 
 .menu-input-title {
   display: inline-block;
-  width: 30vw;
-  min-width: 100px;
+  flex: 0 0 130px;
+  border-bottom: 1px solid var(--color-main-dark);
+}
+
+.master-menu-wrapper label input,
+.master-menu-wrapper label select {
+  flex: 1 1 auto;
+  padding: 5px 10px;
+  margin-right: 20px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--color-main-dark);
+  background-color: var(--color-white);
 }
 
 .master-menu-wrapper:hover {
