@@ -35,25 +35,34 @@ const handleCloseBtnClick = (e, noteId) => {
         clearPath(path.join(__dirname, 'html'))
         remote.app.quit();
       } else {
-        removeFile(path.join(__dirname, `html/${noteId}.html`))
-        removeFile(`${getConfig().notesPath}/${noteId}.json`)
-        
-        const notesDataArray = remote.getGlobal( "notesDataArray" )
-        const filteredNotesDataArray = notesDataArray.filter(note => (note.id !== noteId))
-        
-        const tray = remote.getGlobal( "tray" )
-        const notesTrayItems = filteredNotesDataArray.map(note => ({
-          label: note.title,
-          click: () => note.browserWindow.focus(),
-        }))
-        const contextMenu = remote.Menu.buildFromTemplate(notesTrayItems)
-        tray.setContextMenu(contextMenu)
-
-        const window = remote.getCurrentWindow()
-        window.close()
+        handleToggleModal()
       }
     })
     .catch(err => { throw new Error(err) })
+}
+
+const handleRemoveChildNote = (e, noteId) => {
+  removeFile(path.join(__dirname, `html/${noteId}.html`))
+  removeFile(`${getConfig().notesPath}/${noteId}.json`)
+  
+  const notesDataArray = remote.getGlobal( "notesDataArray" )
+  const filteredNotesDataArray = notesDataArray.filter(note => (note.id !== noteId))
+  
+  const tray = remote.getGlobal( "tray" )
+  const notesTrayItems = filteredNotesDataArray.map(note => ({
+    label: note.title,
+    click: () => note.browserWindow.focus(),
+  }))
+  const contextMenu = remote.Menu.buildFromTemplate(notesTrayItems)
+  tray.setContextMenu(contextMenu)
+
+  const window = remote.getCurrentWindow()
+  window.close()
+}
+
+const handleToggleModal = () => {
+  const modal = document.querySelector('.close-btn-modal');
+  modal.classList.toggle('modal-visible');
 }
 
 const handleAddBtnClick = () => {
@@ -162,8 +171,10 @@ const applyOptionChange = (field, change) => {
 }
 
 module.exports = {
+  handleRemoveChildNote,
   handleCloseBtnClick,
   handleConfigChange,
+  handleToggleModal,
   handleAddBtnClick,
   handleNoteChange,
   insertStyles,

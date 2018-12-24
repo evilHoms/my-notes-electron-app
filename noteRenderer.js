@@ -1,5 +1,7 @@
 const {
+  handleRemoveChildNote,
   handleCloseBtnClick,
+  handleToggleModal,
   handleNoteChange,
   handleAddBtnClick,
   handleConfigChange,
@@ -32,6 +34,12 @@ closeBtn.addEventListener('click', (e) => handleCloseBtnClick(e, root.dataset.id
 textField.addEventListener('input', handleNoteChange)
 titleField.addEventListener('input', handleNoteChange)
 
+// Only in child note
+const modalYesBtn = document.querySelector('.modal-yes-btn')
+const modalNoBtn = document.querySelector('.modal-no-btn')
+modalYesBtn && modalYesBtn.addEventListener('click', (e) => handleRemoveChildNote(e, root.dataset.id))
+modalNoBtn && modalNoBtn.addEventListener('click', handleToggleModal)
+
 // Only in master note
 addBtn && addBtn.addEventListener('click', handleAddBtnClick)
 changeFzInput && changeFzInput.addEventListener('input', handleConfigChange)
@@ -57,6 +65,6 @@ changeBackgroundInput && (changeBackgroundInput.value = config.background)
 changeMenuBackgroundInput && (changeMenuBackgroundInput.value = config.menuBackground)
 
 // Scroll input fields with possible big absolute path to end of line
-changePathInput.scrollLeft = changePathInput.scrollWidth;
-changeBackgroundInput.scrollLeft = changeBackgroundInput.scrollWidth;
-changeMenuBackgroundInput.scrollLeft = changeMenuBackgroundInput.scrollWidth;
+changePathInput && (changePathInput.scrollLeft = changePathInput.scrollWidth);
+changeBackgroundInput && (changeBackgroundInput.scrollLeft = changeBackgroundInput.scrollWidth);
+changeMenuBackgroundInput && (changeMenuBackgroundInput.scrollLeft = changeMenuBackgroundInput.scrollWidth);

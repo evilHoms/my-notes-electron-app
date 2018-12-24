@@ -60,13 +60,19 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
               <nav class="menu">
                 <div class="menu-controls">
                   <button class="add-btn">
-                    +
+                    <svg viewBox="0 0 32 32" id="icon-plus" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                      <path d="M18,14h12c1.1,0,2,0.9,2,2s-0.9,2-2,2H18v12c0,1.1-0.9,2-2,2s-2-0.9-2-2V18H2c-1.1,0-2-0.9-2-2s0.9-2,2-2h12V2c0-1.1,0.9-2,2-2s2,0.9,2,2V14z">
+                      </path>
+                    </svg>
                   </button>
                   <div class="menu-hint">
                     Add one more note.
                   </div>
                   <button class="close-btn">
-                    X
+                    <svg style="transform: rotate(45deg)" viewBox="0 0 32 32" id="icon-close" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                      <path d="M18,14h12c1.1,0,2,0.9,2,2s-0.9,2-2,2H18v12c0,1.1-0.9,2-2,2s-2-0.9-2-2V18H2c-1.1,0-2-0.9-2-2s0.9-2,2-2h12V2c0-1.1,0.9-2,2-2s2,0.9,2,2V14z">
+                      </path>
+                    </svg>
                   </button>
                   <div class="menu-hint">
                     Close application (All notes will be saved).
@@ -196,7 +202,21 @@ const createChildNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text h
                 data-type="title"
               />
               <div class="child-note-menu-wrapper">
-                <button class="close-btn">X</button>
+                <button class="close-btn">
+                  <svg style="transform: rotate(45deg)" viewBox="0 0 32 32" id="icon-close" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                    <path d="M18,14h12c1.1,0,2,0.9,2,2s-0.9,2-2,2H18v12c0,1.1-0.9,2-2,2s-2-0.9-2-2V18H2c-1.1,0-2-0.9-2-2s0.9-2,2-2h12V2c0-1.1,0.9-2,2-2s2,0.9,2,2V14z">
+                    </path>
+                  </svg>
+                </button>
+                <div class="close-btn-modal">
+                  <div class="modal-content">
+                    <div>Note will be removed, proceed?</div>
+                    <div class="modal-btns-wrapper">
+                      <button class="modal-yes-btn">Yes</button>
+                      <button class="modal-no-btn">No</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </header>
             <textarea

@@ -32,7 +32,23 @@
   height: 100vh;
   margin-left: -80vw;
   padding: 20px calc(20vw + 20px) 40px 20px;
+  font-family: Roboto, Arial, sans-serif;
   transition: 1s;
+}
+
+.menu-relaunch {
+  border: none;
+  border-bottom: 1px solid var(--color-dark);
+  font-size: 18px;
+  background-color: transparent;
+  cursor: pointer;
+  padding-bottom: 0;
+  transition: 0.5s;
+}
+
+.menu-relaunch:hover {
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--color-dark);
 }
 
 .menu-controls {
@@ -42,24 +58,24 @@
 }
 
 .add-btn {
-  border: none;
+  border: 1px solid transparent;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  background-color: var(--color-main-light);
-  box-shadow: 0 0 5px 2px var(--color-main-dark);
-  font-family: var(--font-main);
-  font-size: 12px;
-  font-weight: 700;
-  transform: scale(1.0);
-  transition: 0.5s;
+  padding: 4px;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
   cursor: pointer;
+  transition: 0.5s;
+  transform: scale(1);
+}
+
+.add-btn svg {
+  fill: var(--color-dark);
 }
 
 .add-btn:hover {
-  background-color: var(--color-main-dark);
-  box-shadow: 0 0 5px 2px var(--color-main-light);
-  transform: scale(1.1);
+  transform: scale(1.3);
+  border: 1px solid var(--color-dark);
 }
 
 .add-btn:hover + .menu-hint,

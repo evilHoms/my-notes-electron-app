@@ -37,6 +37,7 @@
   --color-main-light: #fef5ec;
   --color-white: #ffffff;
   --color-dark: #232327;
+  --color-dark-transparent: rgba(0, 0, 0, 0.4);
 
   --font-main: 'Caveat', Arial, Helvetica, sans-serif;
 }
@@ -106,24 +107,83 @@ body {
 }
 
 .close-btn {
-  border: none;
+  border: 1px solid transparent;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  background-color: var(--color-main-light);
-  box-shadow: 0 0 5px 2px var(--color-main-dark);
-  font-family: var(--font-main);
-  font-size: 12px;
+  padding: 4px;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.5s;
+  transform: scale(1);
+}
+
+.close-btn svg {
+  fill: var(--color-dark);
+}
+
+.close-btn:hover {
+  transform: scale(1.3);
+  border: 1px solid var(--color-dark);
+}
+
+.close-btn-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-dark-transparent);
+  transition: 0.5s;
+}
+
+.close-btn-modal.modal-visible {
+  z-index: 1;
+  opacity: 1;
+}
+
+.close-btn-modal .modal-content {
+  padding: 20px 30px;
+  background-color: var(--color-white);
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 18px;
+  transform: scale(0.1);
+  transition: 0.5s;
+}
+
+.modal-visible .modal-content {
+  transform: scale(1);
+}
+
+.modal-btns-wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.modal-yes-btn,
+.modal-no-btn {
+  padding: 3px 10px;
+  border: 1px solid var(--color-dark-transparent);
+  border-radius: 3px;
+  background-color: transparent;
+  color: var(--color-dark);
+  font-size: 16px;
   font-weight: 700;
-  transform: scale(1.0);
+  font-family: Merriweather, Arial, sans-serif;
+  transform: scale(1);
   transition: 0.5s;
   cursor: pointer;
 }
 
-.close-btn:hover {
-  background-color: var(--color-main-dark);
-  box-shadow: 0 0 5px 2px var(--color-main-light);
-  transform: scale(1.1);
+.modal-yes-btn:hover,
+.modal-no-btn:hover {
+  transform: scale(1.3);
 }
 
 .note-face {
