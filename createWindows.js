@@ -56,10 +56,6 @@ const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => 
     throttledWriteNote(updatedNoteItem)
   })
   
-  browserWindow.on('closed', () => {
-    browserWindow = null
-  })
-
   return browserWindow
 }
 

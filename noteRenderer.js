@@ -3,6 +3,7 @@ const {
   handleCloseBtnClick,
   handleToggleModal,
   handleNoteChange,
+  handleHideNote,
   handleAddBtnClick,
   handleConfigChange,
   relaunch,
@@ -13,6 +14,7 @@ const { getConfig } = require('./config')
 // Common
 const root = document.querySelector('#root')
 const closeBtn = document.querySelector('.close-btn')
+const hideBtn = document.querySelector('.hide-btn')
 const titleField = document.querySelector('.title-input')
 const textField = document.querySelector('.note-area')
 
@@ -31,6 +33,7 @@ const changeMenuBackgroundInput = document.querySelector('.change-menu-backgroun
 
 // Common
 closeBtn.addEventListener('click', (e) => handleCloseBtnClick(e, root.dataset.id))
+hideBtn.addEventListener('click', handleHideNote)
 textField.addEventListener('input', handleNoteChange)
 titleField.addEventListener('input', handleNoteChange)
 

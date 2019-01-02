@@ -44,18 +44,20 @@ app.on('ready', () => {
   const notesTrayItems = notesDataArray.map(note => ({
     label: note.title,
     click: () => {
+      note.browserWindow.show()
       note.browserWindow.focus()
-      // const isHidden = note.browserWindow.isHidden
-      // if (isHidden) {
-      //   note.browserWindow.show()
-      //   note.browserWindow.isHidden = false
-      // } else {
-      //   note.browserWindow.hide()
-      //   note.browserWindow.isHidden = true
-      // }
     }
   }))
-  const contextMenu = Menu.buildFromTemplate(notesTrayItems)
+  const trayExitBtn = [{
+    type: 'separator'
+  }, {
+    label: 'Quit',
+    click: () => {
+      app.quit()
+    }
+  }]
+  const mergedMenuItems = notesTrayItems.concat(trayExitBtn)
+  const contextMenu = Menu.buildFromTemplate(mergedMenuItems)
   tray.setToolTip('Notes')
   tray.setContextMenu(contextMenu)
 

@@ -41,6 +41,11 @@ const handleCloseBtnClick = (e, noteId) => {
     .catch(err => { throw new Error(err) })
 }
 
+const handleHideNote = () => {
+  const window = remote.getCurrentWindow()
+  window.hide()
+}
+
 const handleRemoveChildNote = (e, noteId) => {
   removeFile(path.join(__dirname, `html/${noteId}.html`))
   removeFile(`${getConfig().notesPath}/${noteId}.json`)
@@ -177,6 +182,7 @@ module.exports = {
   handleToggleModal,
   handleAddBtnClick,
   handleNoteChange,
+  handleHideNote,
   insertStyles,
   debounce,
   relaunch,
