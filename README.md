@@ -19,11 +19,11 @@ Work in progress
 
 ## Features
 
-Tha only and most important feature is to create notes.
-Just create notes that is all, really.
-You can write notes, save them, and read.
-But you can do it with comfort.
-U can write as much notes, as u need, each note will be saved,
-u can easy customize font and background for them for most comfort.
-
+The only and most important feature is to create notes.  
+Just create notes that is all, really.  
+You can write notes, save them, read, stick on desktop.  
+All notes can be hidden in tray, or fully removed.  
+No any footprints in system.  
+U can easy customize font and background for them for most comfort.  
+  
 If u got some suggestion of functionality, u're welcome!
