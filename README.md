@@ -1,17 +1,17 @@
-# my-notes
+# My Notes
 
 ## Description
 
-It is a electron desktop app to make a notes
+It is the electron desktop app to make a notes.
 
 ## Installation
 
 ### For Linux Users (Ubuntu/Mint/Debian)
 
-Place downloaded files in prefered location
-Start `linux-install.sh` script. It'll install all dependensies and will create start script
-Application will be able to start after installation by starting `linux-start.sh` script
-Installed `Yarn` is required
+Place downloaded files in prefered location.  
+Start `installers/linux/linux-install.sh` script. It'll install all dependensies and will create start script.  
+Application will be able to start after installation by starting `linux-start.sh` script.  
+`Yarn` installed is required.  
 
 ### For Windows Users
 
