@@ -4,6 +4,15 @@ const path = require('path')
 
 const { getConfig } = require('./config')
 
+const isExecutable = () => {
+  if (__dirname.match('.asar')) {
+    return true
+  }
+  return false
+}
+
+const folder__dirname = isExecutable() ? path.join(__dirname, '..', '..') : __dirname
+
 const openNotesFile = () => {
   ensureExists(getConfig().notesPath);
 }
@@ -48,9 +57,9 @@ const createNote = (isMaster = false) => {
 }
 
 const ensureExists = (dir) => {
-  const splittedDir = dir.split('/');
+  const splittedDir = dir.split(path.sep);
   splittedDir.forEach((currentDir, index, fullDir) => {
-    const iterationDir = '/' + fullDir.slice(1, index + 1).join('/')
+    const iterationDir = path.sep + fullDir.slice(1, index + 1).join(path.sep)
     if (!fs.existsSync(iterationDir)) {
       fs.mkdirSync(iterationDir)
     }
@@ -84,4 +93,6 @@ module.exports = {
   isPathExists,
   clearPath,
   removeFile,
+  isExecutable,
+  folder__dirname,
 }

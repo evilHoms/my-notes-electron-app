@@ -1,7 +1,9 @@
 const electron = require('electron')
 const { BrowserWindow, remote } = require('electron')
+const path = require('path')
+
 const config = require('./config').getConfig()
-const { writeNote } = require('./fs-functions')
+const { writeNote, folder__dirname } = require('./fs-functions')
 
 const debounce = (func, delay) => {
   let timer = null;
@@ -33,12 +35,11 @@ const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => 
     frame: false,
     height,
     width,
-    // icon:
     x,
     y,
   })
 
-  browserWindow.loadFile(`html/${id}.html`)
+  browserWindow.loadFile(path.join(folder__dirname, 'html', `${id}.html`))
 
   browserWindow.on('move', () => {
     const relativeX = browserWindow.getPosition()[0] / screen.width
@@ -56,6 +57,7 @@ const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => 
     throttledWriteNote(updatedNoteItem)
   })
   
+  browserWindow.webContents.openDevTools()
   return browserWindow
 }
 

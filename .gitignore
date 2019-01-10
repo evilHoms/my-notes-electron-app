@@ -5,3 +5,4 @@ TODO
 .env
 linux-start.sh
 store.json
+config/store.json

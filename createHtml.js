@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
+const { folder__dirname } = require('./fs-functions')
 const config = require('./config').getConfig()
 
 const isBackgroundColor = (value) => {
@@ -177,7 +178,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
       </body>
     </html> 
   `
-  fs.writeFileSync(path.join(__dirname, `html/${id}.html`), mainNoteTemplate);
+  fs.writeFileSync(path.join(folder__dirname, 'html', `${id}.html`), mainNoteTemplate);
 }
 
 const createChildNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text here...' }) => {
@@ -247,7 +248,7 @@ const createChildNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text h
       </body>
     </html> 
   `
-  fs.writeFileSync(path.join(__dirname, `html/${id}.html`), childNoteTemplate);
+  fs.writeFileSync(path.join(folder__dirname, 'html', `${id}.html`), childNoteTemplate);
 }
 
 module.exports = {
