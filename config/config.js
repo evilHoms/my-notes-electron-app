@@ -15,8 +15,8 @@ const ensureStoreExists = () => {
   if (!fs.existsSync(storePath)) {
     const baseConfig = JSON.stringify({
       notesPath: path.join(folder__dirname, 'data', 'notes'),
-      noteWidth: process.env.NOTE_WIDTH,
-      noteHeight: process.env.NOTE_HEIGHT,
+      noteWidth: '400',
+      noteHeight: '400',
       titleFontSize: '24px',
       titleFontColor: '#232327',
       titleFontFamily: 'Caveat',

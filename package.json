@@ -4,11 +4,7 @@
   "description": "Desktop notes application",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=accets/images/note.ico --prune=true --out=release-builds",
-    "package-win": "electron-packager . my-notes-electron-app --overwrite --asar --platform=win32 --arch=ia32 --icon=accets/images/note.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='My Notes'",
-    "package-lin": "electron-packager . my-notes-electron-app --overwrite --asar --platform=linux --arch=x64 --icon=accets/images/note.png --prune=true --out=release-builds",
-    "build-win-installer": "node installers/windows/createinstaller.js"
+    "start": "electron ."
   },
   "repository": "",
   "keywords": [
@@ -20,9 +16,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^6.1.0",
-    "electron-packager": "^13.0.1",
-    "electron-winstaller": "^2.7.0",
     "uniqid": "^5.0.3"
   }
 }

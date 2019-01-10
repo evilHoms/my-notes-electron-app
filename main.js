@@ -1,8 +1,6 @@
 const { app, ipcMain, Menu, Tray } = require('electron')
-const dotenv = require('dotenv')
 const path = require('path')
 
-dotenv.config();
 const {
   getAllNotesIds,
   createNote,
@@ -42,6 +40,7 @@ ipcMain.on( "setNotesDataArray", ( event, notesDataArray ) => {
 } );
 global.tray = null;
 app.on('ready', () => {
+  // Copy assets to release folder
   tray = new Tray(path.join(folder__dirname, 'accets', 'images', 'note.png'))
   const notesTrayItems = notesDataArray.map(note => ({
     label: note.title,
