@@ -238,3 +238,11 @@ body {
 .title-input:focus {
   border-bottom: 1px solid var(--color-dark);
 }
+
+.resize-zone {
+  -webkit-app-region: no-drag;
+  position: fixed;
+  bottom: 0;
+  height: 5px;
+  width: 100vw;
+}

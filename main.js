@@ -41,27 +41,41 @@ ipcMain.on( "setNotesDataArray", ( event, notesDataArray ) => {
 } );
 global.tray = null;
 app.on('ready', () => {
-  // Copy assets to release folder
   tray = new Tray(path.join(folder__dirname, 'accets', 'images', 'note.png'))
-  const notesTrayItems = notesDataArray.map(note => ({
-    label: note.title,
-    click: () => {
-      note.browserWindow.show()
-      note.browserWindow.focus()
-    }
-  }))
-  const trayExitBtn = [{
-    type: 'separator'
-  }, {
-    label: 'Quit',
-    click: () => {
-      app.quit()
-    }
-  }]
-  const mergedMenuItems = notesTrayItems.concat(trayExitBtn)
-  const contextMenu = Menu.buildFromTemplate(mergedMenuItems)
+  const buildTrayMenu = () => {
+    const updateTrayItems = [{
+      label: 'Update Notes',
+      click: () => {
+        tray.destroy()
+        tray = new Tray(path.join(folder__dirname, 'accets', 'images', 'note.png'))
+        tray.setToolTip('Notes')
+        tray.setContextMenu(buildTrayMenu())
+      }
+    }, {
+      type: 'separator',
+    }]
+    const notesTrayItems = notesDataArray.map(note => ({
+      label: note.title,
+      click: () => {
+        note.browserWindow.show()
+        note.browserWindow.focus()
+      }
+    }))
+    const trayExitBtn = [{
+      type: 'separator'
+    }, {
+      label: 'Quit',
+      click: () => {
+        app.quit()
+      }
+    }]
+    const mergedMenuItems = updateTrayItems.concat(notesTrayItems, trayExitBtn)
+    return Menu.buildFromTemplate(mergedMenuItems)
+  }
+  
   tray.setToolTip('Notes')
-  tray.setContextMenu(contextMenu)
+  tray.setContextMenu(buildTrayMenu())
+  setInterval(() => tray.setContextMenu(buildTrayMenu()), 10000)
 
   const mainNote = notesDataArray.find((item) => (item.isMaster))
   notesDataArray.forEach((note) => {

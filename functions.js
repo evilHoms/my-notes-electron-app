@@ -52,14 +52,7 @@ const handleRemoveChildNote = (e, noteId) => {
   
   const notesDataArray = remote.getGlobal( "notesDataArray" )
   const filteredNotesDataArray = notesDataArray.filter(note => (note.id !== noteId))
-  
-  const tray = remote.getGlobal( "tray" )
-  const notesTrayItems = filteredNotesDataArray.map(note => ({
-    label: note.title,
-    click: () => note.browserWindow.focus(),
-  }))
-  const contextMenu = remote.Menu.buildFromTemplate(notesTrayItems)
-  tray.setContextMenu(contextMenu)
+  ipcRenderer.send( "setNotesDataArray", filteredNotesDataArray );
 
   const window = remote.getCurrentWindow()
   window.close()
@@ -79,18 +72,17 @@ const handleAddBtnClick = () => {
   newNote.browserWindow = createNoteWindow(newNote, mainNote, isRemote)
   notesDataArray.push(newNote)
 
-  const tray = remote.getGlobal( "tray" )
-  const notesTrayItems = notesDataArray.map(note => ({
-    label: note.title,
-    click: () => note.browserWindow.focus(),
-  }))
-  const contextMenu = remote.Menu.buildFromTemplate(notesTrayItems)
-  tray.setContextMenu(contextMenu)
-
   ipcRenderer.send( "setNotesDataArray", notesDataArray );
 }
 
 const handleNoteChange = debounce(e => {
+  const notesDataArray = remote.getGlobal( "notesDataArray" ).map(item => {
+    if (item.id === e.target.dataset.id) {
+      item[e.target.dataset.type] = e.target.value
+    }
+    return item
+  })
+  ipcRenderer.send( "setNotesDataArray", notesDataArray )
   getNotePromise(e.target.dataset.id)
     .then(data => {
       data[e.target.dataset.type] = e.target.value

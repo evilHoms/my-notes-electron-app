@@ -171,6 +171,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
               </nav>
             </div>
           </div>
+          <div class="resize-zone"></div>
         </section>
         <script>
           require('../noteRenderer.js')
@@ -241,6 +242,7 @@ const createChildNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text h
               data-id="${id}"
               data-type="note">${note}</textarea>
           </div>
+          <div class="resize-zone"></div>
         </section>
         <script>
           require('../noteRenderer.js')
