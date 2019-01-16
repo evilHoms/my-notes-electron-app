@@ -149,3 +149,20 @@
 .master-menu-wrapper:hover .menu {
   margin-left: 0;
 }
+
+@media (max-height: 500px) and (max-width: 500px) {
+  .menu-options {
+    max-height: 35vh;
+  }
+}
+
+@media (max-height: 380px) and (max-width: 380px) {
+  .menu-options {
+    max-height: 60vh;
+  }
+
+  .menu-hint {
+    display: none;
+  }
+}
+

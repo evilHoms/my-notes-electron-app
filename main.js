@@ -11,10 +11,11 @@ const {
 } = require('./fs-functions')
 const { createMainNoteHtml, createChildNoteHtml } = require('./createHtml')
 const { createNoteWindow } = require('./createWindows')
+const { getConfig } = require('./config')
 
 clearPath(path.join(folder__dirname, 'html'))
 
-const notesPath = path.join(folder__dirname, 'data', 'notes')
+const notesPath = getConfig().notesPath
 const notesIdsArray = getAllNotesIds(notesPath)
 global.notesDataArray = []
 
@@ -22,7 +23,7 @@ if (notesIdsArray.length) {
   notesIdsArray.forEach((noteId, index) => {
     const note = getNote(noteId)
     notesDataArray.push(note)
-    if (!isPathExists(path.join(folder__dirname, `html/${noteId}.html`))) {
+    if (!isPathExists(path.join(folder__dirname, 'notes', `${noteId}.html`))) {
       note.isMaster ?
         createMainNoteHtml(notesDataArray[index]) :
         createChildNoteHtml(notesDataArray[index])
