@@ -8,6 +8,10 @@ const isBackgroundColor = (value) => {
   return value[0] === '#' || !value.split('').find(item => (item === '.' || item === '/'))
 }
 
+const fixPath = (path) => {
+  return path.replace(/\\/g, '/');
+}
+
 const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text here...' }) => {
   const mainNoteTemplate = `
     <!DOCTYPE html>
@@ -24,7 +28,7 @@ const createMainNoteHtml = ({ id, title = 'Untitled', note = 'Enter note text he
             class="note-face"
             data-type="face"
             style="
-              background-image: ${isBackgroundColor(config.background) ? 'none' : `url(${config.background})`};
+              background-image: ${isBackgroundColor(config.background) ? 'none' : `url(../${fixPath(config.background)})`};
               background-color: ${isBackgroundColor(config.background) ? config.background : '#ffffff'};
             ">
             <header class="top-panel">
