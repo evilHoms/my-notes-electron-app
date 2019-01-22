@@ -57,7 +57,6 @@ const createNoteWindow = (noteItem, parentNoteItem = null, isRemote = false) => 
     throttledWriteNote(updatedNoteItem)
   })
   
-  browserWindow.webContents.openDevTools()
   return browserWindow
 }
 

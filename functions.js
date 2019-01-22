@@ -173,6 +173,7 @@ module.exports = {
   handleConfigChange,
   handleToggleModal,
   handleAddBtnClick,
+  applyOptionChange,
   handleNoteChange,
   handleHideNote,
   insertStyles,
