@@ -4,6 +4,7 @@ const {
   handleToggleModal,
   handleNoteChange,
   handleHideNote,
+  applyOptionChange,
   handleAddBtnClick,
   handleConfigChange,
   relaunch,
@@ -71,3 +72,7 @@ changeMenuBackgroundInput && (changeMenuBackgroundInput.value = config.menuBackg
 changePathInput && (changePathInput.scrollLeft = changePathInput.scrollWidth);
 changeBackgroundInput && (changeBackgroundInput.scrollLeft = changeBackgroundInput.scrollWidth);
 changeMenuBackgroundInput && (changeMenuBackgroundInput.scrollLeft = changeMenuBackgroundInput.scrollWidth);
+
+// Some hacks
+applyOptionChange('background', getConfig().background);
+applyOptionChange('menu-background', getConfig().menuBackground);
